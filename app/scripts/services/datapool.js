@@ -9,13 +9,23 @@
  */
 angular.module('easyToDoApp')
   .service('dataPool', function ($localStorage) {
-    var _userData = {
-      username:"",
-      categroyList:[],
-      toDoList:[]
+    //var _userData = {
+    //  username:"",
+    //  categroyList:[],
+    //  toDoList:[]
+    //}
+
+    var _userData;
+    var _curCategoryIndex;
+
+    function resetUserData(name){
     }
 
-    var _curCategoryIndex;
+    function UserData(user){
+      this.username = user;
+      this.categroyList = [];
+      this.toDoList = [];
+    }
 
     var ToDoItem = function(desc,categroyId){
        this.action = desc;
@@ -25,6 +35,7 @@ angular.module('easyToDoApp')
 
     var Categroy = function(text){
       this.subject = text;
+      this.display = true;
     }
 
     function writeLocalData(){
@@ -37,17 +48,19 @@ angular.module('easyToDoApp')
        var key = "easyToDo"+_userData.username;
        if($localStorage[key]){
          _userData = $localStorage[key];
+       }else{
+         resetUserData();
        }
     }
 
 
     return {
       setUserName:function(name){
-         _userData.username = name;
-         readLocalData();
+         _userData = new UserData(name);
+         readLocalData(name);
       },
       getUserName:function(){
-         return _userData.username;
+         return _userData?_userData.username:"";
       },
       addCategory:function(text){
          var item = new Categroy(text);
@@ -65,25 +78,30 @@ angular.module('easyToDoApp')
          return _curCategoryIndex;
       },
       getCurCategoryName:function(){
-         return _userData.categroyList[_curCategoryIndex]?_userData.categroyList[_curCategoryIndex].subject: "unknown";
+         return _userData?_userData.categroyList[_curCategoryIndex].subject: "";
       },
       addTodoItem:function(item){
          var newTodo = new ToDoItem(item,_curCategoryIndex);
-         _userData.toDoList.push(newTodo);
-         writeLocalData();
+           _userData.toDoList.push(newTodo);
+           writeLocalData();
       },
       getTodoListByCategory:function(){
         var arr = [];
-        for(var i=0;i<_userData.toDoList.length;i++){
-           if(_userData.toDoList[i].id === _curCategoryIndex){
-              arr.push(_userData.toDoList[i]);
-           }
+        if(_userData){
+          for(var i=0;i<_userData.toDoList.length;i++){
+             if(_userData.toDoList[i].id === _curCategoryIndex){
+                arr.push(_userData.toDoList[i]);
+             }
+          }
         }
         return arr;
       },
       getTodoListForAll:function(){
         return _userData.toDoList;
+      },
+      deleteCategory:function(index){
+        _userData.categroyList[index].display = false;
+        writeLocalData();
       }
     }
-
   });

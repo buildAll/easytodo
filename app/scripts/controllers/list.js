@@ -9,6 +9,9 @@
  */
 angular.module('easyToDoApp')
   .controller('ListCtrl', function ($scope,$location,dataPool) {
+     if(dataPool.getCurCategoryName().length === 0){
+        $location.path('/');
+     }
      //private tool function
      function updateTodoList(){
       $scope.toDoList = dataPool.getTodoListByCategory();

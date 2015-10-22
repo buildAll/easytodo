@@ -1,3 +1,22 @@
 .tc{
   text-align:center;
 }
+
+.easyToDo_categoryRow{
+  height:46px;
+  background-color:#f0f0f0;
+  border:1px solid #ccc;
+  line-height:46px;
+}
+.easyToDo_categoryRow .easyToDo_deleteBtn{
+  display:none;
+  position:relative;
+  top:5px;
+}
+.easyToDo_categoryRow:hover{
+  cursor:pointer;
+  background-color:#e8e8e8;
+}
+.easyToDo_categoryRow:hover .easyToDo_deleteBtn{
+  display: block;
+}
