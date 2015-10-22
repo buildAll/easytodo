@@ -1,0 +1,10 @@
+<form class="form-horizontal" ng-submit="doAdd()" name="toAdd" novalidate>
+  <div class="row">
+    <div class="col-xs-9">
+      <input name="sthToAdd" autocomplete="off" ng-model="sthToAdd" class="form-control" type="text"  required>
+    </div>
+    <div class="col-xs-3">
+      <button type="submit" class="btn btn-primary col-xs-12" ng-disabled="toAdd.sthToAdd.$error.required">add</button>
+    </div>
+  </div>
+</form>

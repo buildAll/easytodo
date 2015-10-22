@@ -24,7 +24,8 @@ angular
     // 'ngInputDate'
   ])
   .config(["$routeProvider",
-    "$httpProvider",function ($routeProvider,$httpProvider) {
+    "$httpProvider","$localStorageProvider",function ($routeProvider,$httpProvider,$localStorageProvider) {
+    //$localStorageProvider.setKeyPrefix('easyToDo');
     $routeProvider
       .when('/', {
         title:"easyToDo",
@@ -43,10 +44,13 @@ angular
         templateUrl: 'views/category.html',
         controller: 'CategoryCtrl'
       })
+      .when('/list', {
+        templateUrl: 'views/list.html',
+        controller: 'ListCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
-
       $httpProvider.defaults.useXDomain = true;
       delete $httpProvider.defaults.headers.common['X-Requested-With'];
   }]).run(['$location', '$rootScope', function($location, $rootScope) {
