@@ -8,7 +8,7 @@
   border:1px solid #ccc;
   line-height:46px;
 }
-.easyToDo_categoryRow .easyToDo_deleteBtn{
+.easyToDo_deleteBtn{
   display:none;
   position:relative;
   top:5px;
@@ -19,4 +19,29 @@
 }
 .easyToDo_categoryRow:hover .easyToDo_deleteBtn{
   display: block;
+}
+
+.easyToDo_done{
+  text-decoration: line-through;
+  color:#e0e0e0;
+}
+
+/*.easyToDo_itemRow .easyToDo_deleteBtn{
+  display:none;
+}*/
+
+.easyToDo_itemRow:hover .easyToDo_deleteBtn{
+  display: block;
+}
+
+.easyToDo_itemRow{
+  height: 46px;
+  background-color: #f1f1f1;
+  border: 1px solid #fff;
+  line-height: 46px;
+}
+.easyToDo_itemRow:hover{
+  background-color:#888;
+  color:#f3f3f3;
+  cursor:pointer;
 }

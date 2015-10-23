@@ -4,6 +4,15 @@
   <h1>{{curCategory}}</h1>
   <easy-add></easy-add>
   <div class="row">
-    <div class="col-xs-12" ng-repeat="item in toDoList">{{item.action}}</div>
+    <div class="col-xs-12">
+      <div  ng-repeat="item in toDoList" ng-hide="item.status<0" ng-click="toggleStatus($index,$event)" class="easyToDo_itemRow">
+        <span class="col-xs-9" ng-class="{'easyToDo_done':item.status==0}">
+          {{item.action}}
+        </span>
+        <span class="col-xs-3">
+          <button class="btn btn-default easyToDo_deleteBtn" ng-click="deleteItem($index,$event)" ng-show="item.status==0">delete</button>
+        </span>
+      </div>
+    </div>
   </div>
 </div>

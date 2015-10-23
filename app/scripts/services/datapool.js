@@ -18,8 +18,6 @@ angular.module('easyToDoApp')
     var _userData;
     var _curCategoryIndex;
 
-    function resetUserData(name){
-    }
 
     function UserData(user){
       this.username = user;
@@ -27,10 +25,15 @@ angular.module('easyToDoApp')
       this.toDoList = [];
     }
 
+    UserData.prototype.getToDoListLength = function(){
+      return this.toDoList.length;
+    }
+
     var ToDoItem = function(desc,categroyId){
        this.action = desc;
        this.id = categroyId;
-       this.status = 1;//1:ToDo 0:Done
+       this.status = 1;//1:ToDo 0:Done -1:Deleted
+       this.index = _userData.getToDoListLength();
     }
 
     var Categroy = function(text){
@@ -48,8 +51,6 @@ angular.module('easyToDoApp')
        var key = "easyToDo"+_userData.username;
        if($localStorage[key]){
          _userData = $localStorage[key];
-       }else{
-         resetUserData();
        }
     }
 
@@ -68,7 +69,7 @@ angular.module('easyToDoApp')
          writeLocalData();
       },
       getCategoryList:function(){
-         return _userData.categroyList;
+         return _userData?_userData.categroyList:[];
       },
       setCurCategoryIndex:function(index){
          _curCategoryIndex = index;
@@ -101,6 +102,10 @@ angular.module('easyToDoApp')
       },
       deleteCategory:function(index){
         _userData.categroyList[index].display = false;
+        writeLocalData();
+      },
+      setTodoItemStatus:function(i,st){
+        _userData.toDoList[i].status = st;
         writeLocalData();
       }
     }
